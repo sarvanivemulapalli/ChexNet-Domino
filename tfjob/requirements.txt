@@ -1,0 +1,16 @@
+six
+h5py
+numpy
+pandas
+scipy
+sklearn
+tensorflow==1.15.2
+Keras
+ipython
+matplotlib
+ggplot
+plotly
+seaborn
+IPython
+wordcloud
+opencv-python

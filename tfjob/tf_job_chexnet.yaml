@@ -1,0 +1,36 @@
+apiVersion: kubeflow.org/v1
+kind: TFJob
+metadata:
+  name: testrun
+  namespace: kubeflow
+spec:
+  cleanPodPolicy: None
+  tfReplicaSpecs:
+    Worker:
+      replicas: 1 
+      restartPolicy: Never
+      template:
+        spec:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 3000
+            fsGroup: 2000
+          containers:
+            - name: tensorflow
+              image: lkkrishna945/tf-chexnet:latest
+              command:
+                - python
+                - /var/tf_chexnet/densenet_without_hvd.py
+                - --data_dir=/ifs/data/Domino/leela/deep_learning_example/xraytfrecords
+                - --model_dir=/ifs/data/Domino/leela/TFJob
+                - --batch_size=256
+                - --epochs=1
+              volumeMounts:
+                - mountPath: /ifs/data/Domino 
+                  name: training
+              securityContext:
+                allowPrivilegeEscalation: false
+          volumes:
+            - name: training
+              persistentVolumeClaim:
+                claimName: tfevent-volume

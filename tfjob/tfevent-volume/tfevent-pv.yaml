@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tfevent-volume
+  labels:
+    type: nfs-share
+    app: tfjob
+spec:
+  capacity:
+    storage: 50Gi
+  storageClassName: nfs-isilon  
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 172.20.40.22
+    path: "/ifs/data/Domino"

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tfevent-volume
+  namespace: kubeflow
+  labels:
+    type: nfs-share
+    app: tfjob
+spec:
+  storageClassName: nfs-isilon
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
